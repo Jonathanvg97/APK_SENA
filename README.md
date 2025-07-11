@@ -6,6 +6,10 @@
 
 ---
 
+📥 [Descargar APK](https://github.com/Jonathanvg97/APK_SENA/releases/download/my-app.apk)
+
+---
+
 ## 📌 Descripción del Proyecto
 
 Esta aplicación móvil fue desarrollada como parte del proceso de formación del SENA para la evidencia **GA8-220501096-AA2-EV02**. El objetivo principal es codificar módulos funcionales orientados a dispositivos móviles con Android, teniendo en cuenta los requerimientos del sistema y aplicando buenas prácticas de desarrollo.
