@@ -1,18 +1,27 @@
+/* eslint-disable prettier/prettier */
 import { useEffect, useRef } from "react";
-import { View, StyleSheet, Text, Image, Animated } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  Animated,
+  Pressable,
+} from "react-native";
 
-export function GameCard({ game }) {
+export function PokemonCard({ pokemon, onPress }) {
   return (
-    <View key={game.slug} style={styles.card}>
-      <Image source={{ uri: game.image }} style={styles.image} />
-      <Text style={styles.title}>{game.title}</Text>
-      <Text style={styles.score}>{game.score}</Text>
-      <Text style={styles.description}>{game.description}</Text>
-    </View>
+    <Pressable onPress={onPress}>
+      <View key={pokemon.url} style={styles.card}>
+        <Image source={{ uri: pokemon.image }} style={styles.image} />
+        <Text style={styles.title}>{pokemon.name}</Text>
+        <Text style={styles.description}>{pokemon.types.join(", ")}</Text>
+      </View>
+    </Pressable>
   );
 }
 
-export function AnimatedGameCard({ game, index }) {
+export function AnimatedPokemonCard({ pokemon, index, onPress }) {
   const opacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -26,7 +35,7 @@ export function AnimatedGameCard({ game, index }) {
 
   return (
     <Animated.View style={{ opacity }}>
-      <GameCard game={game} />
+      <PokemonCard pokemon={pokemon} onPress={onPress} />
     </Animated.View>
   );
 }
@@ -36,15 +45,14 @@ const styles = StyleSheet.create({
     marginBottom: 42,
   },
   image: {
-    width: 107,
-    height: 147,
+    width: 250,
+    height: 300,
     borderRadius: 10,
   },
   title: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: "bold",
     color: "#fff",
-    marginTop: 10,
   },
   description: {
     fontSize: 16,

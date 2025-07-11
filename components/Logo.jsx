@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 import Svg, { Path } from "react-native-svg";
 
 export const Logo = (props) => (

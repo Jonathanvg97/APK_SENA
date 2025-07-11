@@ -1,37 +1,61 @@
-import { useEffect, useState } from "react";
+/* eslint-disable prettier/prettier */
 
-import { FlatList, View, ScrollView, ActivityIndicator } from "react-native";
-import { getLatestGames } from "../lib/metacritic";
+import { useEffect, useState } from "react";
+import { FlatList, View, ActivityIndicator } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { AnimatedGameCard } from "./GameCard";
+import { AnimatedPokemonCard } from "./pokemonCard";
 import { Logo } from "./Logo";
+import { usePokemon } from "../hooks/usePokemon";
+import { PokemonDetailModal } from "./pokemonDetailModal";
 
 export function Main() {
-  const [games, setGames] = useState([]);
+  //Hooks
+  const { loading, getAllPokemons } = usePokemon();
   const insets = useSafeAreaInsets();
+  //Local state
+  const [pokemons, setPokemons] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  //Handlers
+  const handleSelectPokemon = (pokemon) => {
+    setSelectedPokemon(pokemon);
+    setModalVisible(true);
+  };
 
+  //effects
   useEffect(() => {
-    getLatestGames().then((games) => {
-      setGames(games);
-    });
+    (async () => {
+      const data = await getAllPokemons();
+      setPokemons(data);
+    })();
   }, []);
 
+  //UI
   return (
     <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
       <View style={{ marginBottom: 20 }}>
         <Logo />
       </View>
-      {games.length === 0 ? (
+      {loading ? (
         <ActivityIndicator color={"#fff"} size={"large"} />
       ) : (
         <FlatList
-          data={games}
-          keyExtractor={(game) => game.slug}
+          data={pokemons}
+          keyExtractor={(pokemon) => pokemon.id.toString()}
           renderItem={({ item, index }) => (
-            <AnimatedGameCard game={item} index={index} />
+            <AnimatedPokemonCard
+              pokemon={item}
+              index={index}
+              onPress={() => handleSelectPokemon(item)}
+            />
           )}
         />
       )}
+      <PokemonDetailModal
+        visible={modalVisible}
+        pokemon={selectedPokemon}
+        onClose={() => setModalVisible(false)}
+      />
     </View>
   );
 }
