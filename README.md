@@ -6,7 +6,7 @@
 
 ---
 
-📥 [Descargar APK](https://github.com/Jonathanvg97/APK_SENA/releases/download/my-app.apk)
+📥 [Descargar APK](https://github.com/Jonathanvg97/APK_SENA/blob/main/releases/download/my-app.apk)
 
 ---
 
